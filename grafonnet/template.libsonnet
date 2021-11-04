@@ -18,6 +18,7 @@
    * @param multi (default `false`) Whether multiple values can be selected or not from variable value list.
    * @param sort (default `0`) `0`: Without Sort, `1`: Alphabetical (asc), `2`: Alphabetical (desc), `3`: Numerical (asc), `4`: Numerical (desc).
    * @param skipUrlSync: (default `false`) Set to true to update URL with changes in variable
+   * @param definition: String
    *
    * @return A [template](https://grafana.com/docs/grafana/latest/variables/#templates)
    */
@@ -36,6 +37,7 @@
     multi=false,
     sort=0,
     skipUrlSync=false,
+    definition,
   )::
     {
       allValue: allValues,
@@ -57,7 +59,7 @@
       type: 'query',
       useTags: false,
       skipUrlSync: skipUrlSync,
-      definition: '',
+      definition: definition,
     },
   /**
    * Use an [interval variable](https://grafana.com/docs/grafana/latest/variables/variable-types/add-interval-variable/) to represent time spans such as '1m', '1h', '1d'. You can think of them as a dashboard-wide "group by time" command. Interval variables change how the data is grouped in the visualization. You can also use the Auto Option to return a set number of data points per time span.
