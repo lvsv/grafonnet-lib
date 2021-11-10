@@ -26,6 +26,8 @@
    * @method addLink(link) Adds a link
    * @method addTransformation(transformation) Adds a transformation object
    * @method addTransformations(transformations) Adds an array of transformations
+   * @method addMapping(mapping) Adds a value mapping.
+   * @method addMappings(mappings) Adds an array of value mappings.
    */
   new(
     title,
@@ -87,5 +89,13 @@
       transformations+: [transformation],
     },
     addTransformations(transformations):: std.foldl(function(p, t) p.addTransformation(t), transformations, self),
+    // mappings
+    _nextMapping:: 0,
+    addMapping(mapping):: self {
+      local nextMapping = super._nextMapping,
+      _nextMapping: nextMapping + 1,
+      fieldConfig+: { defaults+: { mappings+: [mapping { id: nextMapping }] } },
+    },
+    addMappings(mappings):: std.foldl(function(p, m) p.addMapping(m), mappings, self),
   },
 }
